@@ -1,5 +1,6 @@
 package com.example.cloud_work.entity;
 
+import com.example.cloud_work.dto.MemberRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,6 +24,14 @@ public class Member {
         this.name = name;
         this.age = age;
         this.mbti = mbti;
+    }
+
+    public static Member from(MemberRequest request) {
+        return new Member(
+                request.name(),
+                request.age(),
+                request.mbti()
+        );
     }
 
 }
