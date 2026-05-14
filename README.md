@@ -18,3 +18,5 @@
 <img width="396" height="340" alt="Image" src="https://github.com/user-attachments/assets/4da1c2ca-03f7-4df7-8761-26957f93cec1" />
 
 로컬로 환경으로 H2 데이터베이스 상태에서 검증하였습니다.
+
+EC2 퍼블릭 IP = 3.38.93.114
