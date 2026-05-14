@@ -20,3 +20,12 @@
 로컬로 환경으로 H2 데이터베이스 상태에서 검증하였습니다.
 
 EC2 퍼블릭 IP = 3.38.93.114
+
+## DB 분리 및 보안 연결
+<img width="503" height="275" alt="Image" src="https://github.com/user-attachments/assets/15e2d33b-f162-4f3b-b348-ea5c1de8731e" />
+
+url = http://3.38.93.114:8080/actuator/info
+
+<img width="1450" height="231" alt="Image" src="https://github.com/user-attachments/assets/1db9d318-4db4-4085-8e2c-5b8fbae8cb45" />
+
+보안그룹을 추가하여 지정해주었습니다.
