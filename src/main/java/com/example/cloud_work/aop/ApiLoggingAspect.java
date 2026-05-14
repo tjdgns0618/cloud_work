@@ -29,7 +29,6 @@ public class ApiLoggingAspect {
                 .requireNonNull(RequestContextHolder.getRequestAttributes()))
                 .getRequest();
 
-        Long memberId = (Long) request.getAttribute("memberId");
         String requestUrl = request.getRequestURI();
         LocalDateTime requestTime = LocalDateTime.now();
 
