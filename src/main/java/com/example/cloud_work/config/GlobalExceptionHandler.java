@@ -13,8 +13,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<String> serviceException(ServiceException ex, HttpServletRequest request) {
-        log.error("[UnhandledException] uri={}, message={}",
-                request.getRequestURI(), ex.getMessage(), ex);
+        log.error("[UnhandledException] uri={}, message={}, status_code={}",
+                request.getRequestURI(), ex.getMessage(), ex.getStatus(), ex);
         return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
     }
 
