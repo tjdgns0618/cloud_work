@@ -2,7 +2,13 @@ spring:
   application:
     name: cloud_work
   profiles:
-    active: local
+    active: prod
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 
 server:
   port: 8080

@@ -1,7 +1,9 @@
 package com.example.cloud_work.exception;
 
-public class MemberNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class MemberNotFoundException extends ServiceException {
     public MemberNotFoundException(String message) {
-        super(message);
+        super(message, HttpStatus.NOT_FOUND);
     }
 }
