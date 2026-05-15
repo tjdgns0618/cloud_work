@@ -29,3 +29,11 @@ url = http://3.38.93.114:8080/actuator/info
 <img width="1450" height="231" alt="Image" src="https://github.com/user-attachments/assets/1db9d318-4db4-4085-8e2c-5b8fbae8cb45" />
 
 보안그룹을 추가하여 지정해주었습니다.
+
+## 프로필 사진 기능 추가와 권한 관리
+Presigned URL = 과제 제출할때 URL 생성후 제출예정
+
+URL 만료기간 = 7일 (생성일 = "" / 만료일 = "")
+
+
+

@@ -19,11 +19,13 @@ public class Member {
     private String name;
     private Long age;
     private String mbti;
+    private String imageurl;
 
     public Member(String name, Long age, String mbti) {
         this.name = name;
         this.age = age;
         this.mbti = mbti;
+        this.imageurl = null;
     }
 
     public static Member from(MemberRequest request) {
@@ -32,6 +34,10 @@ public class Member {
                 request.age(),
                 request.mbti()
         );
+    }
+
+    public void updateImageUrl(String imageurl) {
+        this.imageurl = imageurl;
     }
 
 }
