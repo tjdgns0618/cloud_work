@@ -20,6 +20,9 @@ jobs:                       # 작업 정의
           java-version: '17'
           distribution: 'corretto'
 
+      - name: gradlew 실행 권한 부여  # ← 빌드 & 테스트 바로 전에 위치 확인
+        run: chmod +x ./gradlew
+
       - name: Run tests
         run: ./gradlew test            # 쉘 명령어 직접 실행
 
