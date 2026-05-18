@@ -1,4 +1,8 @@
 spring:
+  cloud:
+    aws:
+      s3:
+        bucket: cloud-work-seonghoon-uploads
   h2:
     console:
       enabled: true

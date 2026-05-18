@@ -1,0 +1,27 @@
+name: CI Pipeline
+
+on:                         # 트리거: 언제 실행할지
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:                       # 작업 정의
+  build:
+    runs-on: ubuntu-latest  # Runner 환경
+
+    steps:                  # 실행할 단계들
+      - name: Checkout code
+        uses: actions/checkout@v4     # 미리 만들어진 Action 사용
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:                          # Action에 전달할 옵션
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Run tests
+        run: ./gradlew test            # 쉘 명령어 직접 실행
+
+      - name: Build JAR
+        run: ./gradlew bootJar
