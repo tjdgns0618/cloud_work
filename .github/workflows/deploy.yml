@@ -66,12 +66,12 @@ jobs:
         run: |
           SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
           IMAGE_URI=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}
-
-          # Docker 빌드
-          docker build --platform linux/arm64 -t $IMAGE_URI:$SHORT_SHA .
           
-          # ECR push
+          docker build --platform linux/arm64 \
+            -t $IMAGE_URI:$SHORT_SHA \
+            -t $IMAGE_URI:latest .    # ← latest 태그 추가
+          
           docker push $IMAGE_URI:$SHORT_SHA
+          docker push $IMAGE_URI:latest  # ← latest push 추가
           
-          # 결과 출력
           echo "✅ Pushed: $IMAGE_URI:$SHORT_SHA"
