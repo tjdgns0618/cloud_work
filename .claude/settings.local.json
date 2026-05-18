@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\_dev\\\\spartaJava\\\\cloud_work\" -Recurse -Directory)",
+      "Bash(Select-Object -First 20)",
+      "Bash(Format-Table FullName)",
+      "Bash(Get-ChildItem -Path \"D:\\\\_dev\\\\spartaJava\\\\cloud_work\" -Recurse -Filter \"*MemberController*\")",
+      "Bash(Select-Object -Property FullName)",
+      "Bash(jar tf *)",
+      "Bash(./gradlew dependencies *)",
+      "Bash(grep -v \"^META\\\\|^$\")",
+      "Bash(./gradlew test *)"
+    ]
+  }
+}
