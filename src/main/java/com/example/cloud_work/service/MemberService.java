@@ -11,10 +11,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.services.cloudfront.CloudFrontUtilities;
+import software.amazon.awssdk.services.cloudfront.model.CannedSignerRequest;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Duration;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
@@ -22,13 +27,21 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberRespository memberRespository;
-
-    private static final Duration PRESIGNED_URL_EXPIRATION = Duration.ofDays(7);
-
     private final S3Template s3Template;
+
+    private static final long SIGNED_URL_EXPIRATION_DAYS = 7;
 
     @Value("${spring.cloud.aws.s3.bucket}")
     private String bucket;
+
+    @Value("${cloudfront.domain}")
+    private String cloudfrontDomain;
+
+    @Value("${cloudfront.key-pair-id}")
+    private String keyPairId;
+
+    @Value("${cloudfront.private-key}")
+    private String privateKey;
 
     private Member findMember(Long memberId) {
         return memberRespository.findById(memberId).orElseThrow(
@@ -67,7 +80,32 @@ public class MemberService {
 
     public URL getDownloadUrl(Long memberId) {
         Member member = findMember(memberId);
+        String key = member.getImageurl();
 
-        return s3Template.createSignedGetURL(bucket, member.getImageurl(), PRESIGNED_URL_EXPIRATION);
+        try {
+            // Private Key 임시 파일 생성
+            Path privateKeyPath = Files.createTempFile("cf-key", ".pem");
+            Files.writeString(privateKeyPath, privateKey);
+            privateKeyPath.toFile().deleteOnExit();
+
+            // CloudFront Signed URL 생성
+            CloudFrontUtilities cloudFrontUtilities = CloudFrontUtilities.create();
+
+            CannedSignerRequest request = CannedSignerRequest.builder()
+                    .resourceUrl(cloudfrontDomain + "/" + key)
+                    .privateKey(privateKeyPath)
+                    .keyPairId(keyPairId)
+                    .expirationDate(
+                            Instant.now().plus(SIGNED_URL_EXPIRATION_DAYS, ChronoUnit.DAYS)
+                    )
+                    .build();
+
+            return new URL(
+                    cloudFrontUtilities.getSignedUrlWithCannedPolicy(request).url()
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException("CloudFront Signed URL 생성 실패", e);
+        }
     }
 }

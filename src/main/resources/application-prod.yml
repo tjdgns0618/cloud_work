@@ -18,6 +18,11 @@ spring:
     hibernate:
       ddl-auto: validate
 
+cloudfront:
+  domain: https://d3hgy7tcqt9u54.cloudfront.net
+  key-pair-id: K3SI7PZC8QZQZC
+  private-key: "${private-key}"
+
 management:
   info:
     env:
