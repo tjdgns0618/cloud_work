@@ -85,7 +85,9 @@ public class MemberService {
         try {
             // Private Key 임시 파일 생성
             Path privateKeyPath = Files.createTempFile("cf-key", ".pem");
+            // private Key 임시 파일에 privateKey를 파라미터 스토어에서 받아와서 저장
             Files.writeString(privateKeyPath, privateKey);
+            // 사용후 삭제되도록 설정
             privateKeyPath.toFile().deleteOnExit();
 
             // CloudFront Signed URL 생성
