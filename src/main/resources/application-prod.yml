@@ -4,7 +4,9 @@ spring:
       s3:
         bucket: cloud-work-seonghoon-uploads
   config:
-    import: aws-parameterstore:/cloud-work/prod/db/
+    import:
+      - aws-parameterstore:/cloud-work/prod/db/
+      - aws-parameterstore:/cloud-work/prod/cloudfront/
   datasource:
     url: "${url}"
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,8 +21,8 @@ spring:
       ddl-auto: validate
 
 cloudfront:
-  domain: https://d3hgy7tcqt9u54.cloudfront.net
-  key-pair-id: K3SI7PZC8QZQZC
+  domain: "${domain}"
+  key-pair-id: "${key-pair-id}"
   private-key: "${private-key}"
 
 management:
