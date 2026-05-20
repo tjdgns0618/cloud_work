@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: gradlew 실행 권한 부여  # ← 빌드 & 테스트 바로 전에 위치 확인
+      - name: gradlew 실행 권한 부여
         run: chmod +x ./gradlew
 
       - name: Run tests
@@ -86,38 +86,50 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
           audience: sts.amazonaws.com
 
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |            
-            # Docker 없으면 설치
-            if ! command -v docker &> /dev/null; then
-              sudo dnf update -y
-              sudo dnf install -y docker
-              sudo systemctl start docker
-              sudo systemctl enable docker
-              sudo usermod -aG docker ec2-user
-            fi      
-      
-            IMAGE_URI=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}
+      - name: Deploy to EC2 via SSM
+        run: |
+          IMAGE_URI="${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.ECR_REPOSITORY }}"
 
-            aws ecr get-login-password --region ${{ vars.AWS_REGION }} | \
-            docker login --username AWS --password-stdin \
-            ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
+          COMMAND_ID=$(aws ssm send-command \
+            --instance-ids "${{ vars.EC2_INSTANCE_ID }}" \
+            --document-name "AWS-RunShellScript" \
+            --parameters "commands=[
+              'if ! command -v docker &> /dev/null; then sudo dnf install -y docker && sudo systemctl start docker && sudo systemctl enable docker && sudo usermod -aG docker ec2-user && sudo chmod 666 /var/run/docker.sock; fi',
+              'sudo chmod 666 /var/run/docker.sock',
+              'aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com',
+              'docker pull ${IMAGE_URI}:latest',
+              'docker stop my-app || true',
+              'docker rm my-app || true',
+              'docker run -d --name my-app -p 8080:8080 --restart unless-stopped -e SPRING_PROFILES_ACTIVE=prod ${IMAGE_URI}:latest',
+              'echo 배포 완료'
+            ]" \
+            --region "${{ vars.AWS_REGION }}" \
+            --query "Command.CommandId" \
+            --output text)
 
-            docker pull $IMAGE_URI:latest
+          echo "Command ID: $COMMAND_ID"
 
-            docker stop my-app || true
-            docker rm my-app || true
+          # 완료 대기
+          for i in $(seq 1 20); do
+            STATUS=$(aws ssm get-command-invocation \
+              --command-id "$COMMAND_ID" \
+              --instance-id "${{ vars.EC2_INSTANCE_ID }}" \
+              --region "${{ vars.AWS_REGION }}" \
+              --query "Status" \
+              --output text)
 
-            docker run -d \
-              --name my-app \
-              -p 8080:8080 \
-              --restart unless-stopped \
-              -e SPRING_PROFILES_ACTIVE=prod \
-              $IMAGE_URI:latest
+            echo "시도 ${i}/20 - 상태: ${STATUS}"
 
-            echo "✅ 배포 완료"
+            if [ "$STATUS" = "Success" ]; then
+              echo "✅ 배포 성공!"
+              exit 0
+            elif [ "$STATUS" = "Failed" ] || [ "$STATUS" = "Cancelled" ]; then
+              echo "❌ 배포 실패: ${STATUS}"
+              exit 1
+            fi
+
+            sleep 15
+          done
+
+          echo "❌ 배포 타임아웃"
+          exit 1
