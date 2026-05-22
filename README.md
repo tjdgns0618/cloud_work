@@ -8,6 +8,8 @@
 
 ---
 
+## LV 1 - 네트워크 구축 및 핵심 기능 배포
+
 ## VPC 설계
 <img width="808" height="387" alt="Image" src="https://github.com/user-attachments/assets/be4e9819-ee62-4329-a396-15e4bed6fbae" />
 
@@ -21,7 +23,9 @@
 
 EC2 퍼블릭 IP = 3.38.93.114
 
-## DB 분리 및 보안 연결
+---
+
+## Lv 2 - DB 분리 및 보안 연결
 <img width="503" height="275" alt="Image" src="https://github.com/user-attachments/assets/15e2d33b-f162-4f3b-b348-ea5c1de8731e" />
 
 url = http://3.38.93.114:8080/actuator/info
@@ -30,12 +34,19 @@ url = http://3.38.93.114:8080/actuator/info
 
 보안그룹을 추가하여 지정해주었습니다.
 
-## 프로필 사진 기능 추가와 권한 관리
-Presigned URL = https://cloud-work-seonghoon-uploads.s3.ap-northeast-2.amazonaws.com/uploads/be8a5bf9-fabc-4159-947f-ef6ae33d304e_GsK7VkbXYAAWM2Q.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEB4aDmFwLW5vcnRoZWFzdC0yIkgwRgIhALrSW3a7kUAQXYjXeJ0WxiD3rKrhcKpX6K7RdGAh3ZavAiEAkEPietk8MkGGhKXq3Yfp3QC01MG7V8K1tUkOWCah2Noq1AUI5%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw5NzExMjkzNDkzNTEiDN2hrz2jCiCRCH8RiiqoBc0D1Cz8hLPef8jilvKKBR37%2BjgTphUPS%2F0R6g9GSpywSjydPsRibaOryz2BsylkcZDcZb5AZHRH9JrL3Or57NZFUbe%2F%2BfpahAwBuvmkbSp13WU5NoBPoAFdrZipcQ8%2F%2Bk6xzTYFEaHjtT4dQ2Nyu138TF%2FPAyBKnwyyPsC0hzkxLCV8qTiADTegc095SqyjrpBAxQ50amOnifljxePmyMRU7uW5UB152zhThZS611MhvTyafHrkAYM7MYw6S4EgwNhPknXnKd1Yu7AJCvojcZjgsAh1%2FefrzX%2B9b0reTTlQnr2PvGGDDzeTJDrB6RNl8jKP0R17jjXtokibujDI%2Boc65aHRbkbyilrDhmo%2FyByw4tlGcNgDJ4jf1n%2BSrRbKGJD%2FSJ65niph%2FrzxB6uwQgHYOvlPMD5txATrFUnpW%2BI6PZuhNKJLHw4S8Nyrd6mwG2Xe4UJeEZo5PLF76BG2mA%2Btq6IgbSl37%2BZUvhqtAFi6zcdH1R3wTvWac9KeBexYSe0xIfqAJchm19rZIrhdg03blDm1dAVLW6WPhU1xJJkU1asfwOqaj8SZjhFWtL%2BD8JWgsgx2BHPuDupxuZVAoU5V5MlsfHegi5TMOMB5JU7gSREYErI6GpLemGx3JdoCjigtx55MI7Pq0r38rvxVhCqJQJyn9UZWxoDDHmWzwPBNz3NPnvhETs036o1gUZ1ng7%2FhLibVRwRyik8bOizSjcxerZypDfSC%2BlGlqWKMivWe8LYhoVkjJpZjb8oDG3s78XqFhoEpO4%2FBPxCG%2FhNEX7o%2FlNfYxcXlxH8nY9Z6bEJS%2BQNVYq6zjYNrj1WxVs%2FpftzbucoxSUx3qg7Rn%2BFmqnfe45hGVYH5VyDsh9JhPqDAFaUUm1sfD9oBDrJzlWTDBnyaUqtrtFu1MPqitdAGOrABRVZqN1spOc2kQvn4247gyXMMVQ%2FIKYwn5n1Sbd%2FNgXeJkk7lpxQyIZ5XsilGoRHGtHJJ2uwV9dqoi04AscuJfojF0lop%2FtUwojYFX7qJTmjmapaEV4zwDJ6Zw8WHAbtWIZ%2FtEli60DoqROiJNqVpbMBqXG%2FLq4EEA5ALJKM075TLlhngFLJ4zlHwSTBabNqaYpub5pMy2Hvah3W1afzBAfkXTTe0XEXI2Q8kv1GX4Lc%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260520T070038Z&X-Amz-SignedHeaders=host&X-Amz-Credential=ASIA6EG6R4TT3IXL6MWG%2F20260520%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Expires=604800&X-Amz-Signature=c14026e3291c075fca0d6385d34f578195895650b4bdd41dbcf793db70335d99
+---
+
+## Lv 3 - 프로필 사진 기능 추가와 권한 관리
+
+Presigned URL을 분명 7일로 한것같은데 기간 만료되었습니다... 이미 CloudFront Signed URL로 수정해서 Signed URL로 확인해주시면 감사하겠습니다.
+
+Presigned URL = [이미지url](https://cloud-work-seonghoon-uploads.s3.ap-northeast-2.amazonaws.com/uploads/be8a5bf9-fabc-4159-947f-ef6ae33d304e_GsK7VkbXYAAWM2Q.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEB4aDmFwLW5vcnRoZWFzdC0yIkgwRgIhALrSW3a7kUAQXYjXeJ0WxiD3rKrhcKpX6K7RdGAh3ZavAiEAkEPietk8MkGGhKXq3Yfp3QC01MG7V8K1tUkOWCah2Noq1AUI5%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw5NzExMjkzNDkzNTEiDN2hrz2jCiCRCH8RiiqoBc0D1Cz8hLPef8jilvKKBR37%2BjgTphUPS%2F0R6g9GSpywSjydPsRibaOryz2BsylkcZDcZb5AZHRH9JrL3Or57NZFUbe%2F%2BfpahAwBuvmkbSp13WU5NoBPoAFdrZipcQ8%2F%2Bk6xzTYFEaHjtT4dQ2Nyu138TF%2FPAyBKnwyyPsC0hzkxLCV8qTiADTegc095SqyjrpBAxQ50amOnifljxePmyMRU7uW5UB152zhThZS611MhvTyafHrkAYM7MYw6S4EgwNhPknXnKd1Yu7AJCvojcZjgsAh1%2FefrzX%2B9b0reTTlQnr2PvGGDDzeTJDrB6RNl8jKP0R17jjXtokibujDI%2Boc65aHRbkbyilrDhmo%2FyByw4tlGcNgDJ4jf1n%2BSrRbKGJD%2FSJ65niph%2FrzxB6uwQgHYOvlPMD5txATrFUnpW%2BI6PZuhNKJLHw4S8Nyrd6mwG2Xe4UJeEZo5PLF76BG2mA%2Btq6IgbSl37%2BZUvhqtAFi6zcdH1R3wTvWac9KeBexYSe0xIfqAJchm19rZIrhdg03blDm1dAVLW6WPhU1xJJkU1asfwOqaj8SZjhFWtL%2BD8JWgsgx2BHPuDupxuZVAoU5V5MlsfHegi5TMOMB5JU7gSREYErI6GpLemGx3JdoCjigtx55MI7Pq0r38rvxVhCqJQJyn9UZWxoDDHmWzwPBNz3NPnvhETs036o1gUZ1ng7%2FhLibVRwRyik8bOizSjcxerZypDfSC%2BlGlqWKMivWe8LYhoVkjJpZjb8oDG3s78XqFhoEpO4%2FBPxCG%2FhNEX7o%2FlNfYxcXlxH8nY9Z6bEJS%2BQNVYq6zjYNrj1WxVs%2FpftzbucoxSUx3qg7Rn%2BFmqnfe45hGVYH5VyDsh9JhPqDAFaUUm1sfD9oBDrJzlWTDBnyaUqtrtFu1MPqitdAGOrABRVZqN1spOc2kQvn4247gyXMMVQ%2FIKYwn5n1Sbd%2FNgXeJkk7lpxQyIZ5XsilGoRHGtHJJ2uwV9dqoi04AscuJfojF0lop%2FtUwojYFX7qJTmjmapaEV4zwDJ6Zw8WHAbtWIZ%2FtEli60DoqROiJNqVpbMBqXG%2FLq4EEA5ALJKM075TLlhngFLJ4zlHwSTBabNqaYpub5pMy2Hvah3W1afzBAfkXTTe0XEXI2Q8kv1GX4Lc%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260520T070038Z&X-Amz-SignedHeaders=host&X-Amz-Credential=ASIA6EG6R4TT3IXL6MWG%2F20260520%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Expires=604800&X-Amz-Signature=c14026e3291c075fca0d6385d34f578195895650b4bdd41dbcf793db70335d99)
 
 URL 만료기간 = 7일 (생성일 = "26.05.19" / 만료일 = "26.05.26")
 
-## Docker & CI/CD 파이프라인 구축
+---
+
+## Lv 4 - Docker & CI/CD 파이프라인 구축
 <img width="730" height="422" alt="Image" src="https://github.com/user-attachments/assets/1f145c50-f7f9-47d7-b0b3-95a91a807b8f" />
 
 Github Actions CI / CD 성공 이미지
@@ -44,12 +55,16 @@ Github Actions CI / CD 성공 이미지
 
 EC2에서 확인한 도커 실행 화면
 
-## 고가용성 아키텍처와 보안 도메인 연결
+---
+
+## Lv 5 - 고가용성 아키텍처와 보안 도메인 연결
 HTTPS 적용된 도메인 URL = http://api.seonghoon.click/actuator/health
 
 <img width="1817" height="369" alt="Image" src="https://github.com/user-attachments/assets/50b24930-a6d8-4106-8fb4-6cb9c478e058" />
 
 Target Group 이미지 
 
-## 글로벌 성능 최적화
+---
+
+## Lv 6 - 글로벌 성능 최적화
 CloudFront Signed URL = https://d3hgy7tcqt9u54.cloudfront.net/uploads/be8a5bf9-fabc-4159-947f-ef6ae33d304e_GsK7VkbXYAAWM2Q.jpg?Expires=1779867092&Signature=YgWJuGAOldwde~PUZHhlHI~oFljqJKF-u8pbVuk4E-d2wq1gu8R1k3kQtfCwbzvacdPfqNGKc72KcL8ywhnzBh6lSxplU6uQv6mE0GXUdpeBCZrRD5p4-Qa4q1XxTtKFgMB8S1abJr5D-IU7nqW9MJXPBCeBLlMEkc~R0Zq-wvnj4Px~Cn4BskoAfxPS1CQvUEFdpLFFQASpTY0FcOO3Dt7oGR7W57PHF6Fwkn4x1AKfzDSYlaN6t9UuZJRszuiRASEFuzcapy8M~Y42OEApWg4BSNq7~y6FcCEH~JtNPVov-d17AI1URgnyhjQYPQo~2FI8MnWHQ0TpIwER2XuabQ__&Key-Pair-Id=K3SI7PZC8QZQZC
