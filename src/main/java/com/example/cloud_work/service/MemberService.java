@@ -78,6 +78,7 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public URL getDownloadUrl(Long memberId) {
         Member member = findMember(memberId);
         String key = member.getImageurl();
